@@ -1,0 +1,7 @@
+---
+- name: "Instala SSH en contenedor"
+  command: lxc-attach -n {{ vmid }} -- {{ item }}
+  with_items:
+        - yum install openssh-server -y
+        - chkconfig sshd on
+        - service sshd start

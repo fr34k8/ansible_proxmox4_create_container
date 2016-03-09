@@ -1,0 +1,18 @@
+#node var
+api_user: root@pam
+api_password: 123456
+api_host: 10.10.0.100 #node ip
+node: proxmox
+#container var
+vmid: 301
+vm_password: 123456
+hostname: zimbra.example.com
+disk: 10
+memory: 1024
+swap: 1024
+ostemplate: local:vztmpl/centos-6-default_20160205_amd64.tar.xz
+ip_address: 10.10.0.70
+netid: net0
+netbridge: vmbr0
+gateway: 10.10.0.1
+nameserver: 10.10.0.1

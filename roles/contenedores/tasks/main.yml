@@ -1,0 +1,24 @@
+- name: "Create container"
+  proxmox: vmid={{ vmid }} node={{ node }}  api_user={{ api_user }} api_password={{ api_password }} api_host={{ api_host }} password={{ vm_password }} hostname={{ hostname }} disk={{ disk }} memory={{ memory }} swap={{ swap }} ostemplate={{ ostemplate }} ip_address={{ ip_address }} netbridge={{ netbridge }} netid={{ netid }} netbridge={{ netbridge }} gateway={{ gateway }} nameserver={{ nameserver }}
+  #register: result
+  changed_when: false
+  tags: ct_create
+
+#- debug: msg="{{result}}"
+
+- name: "Start container"
+  proxmox: vmid={{ vmid }}  api_user={{ api_user }}  api_password={{ api_password }} api_host={{ api_host }} state=started
+  tags: ct_start
+#  register: ct_start_status
+
+#- debug: msg="{{ct_start_status}}"
+
+- name: "Check if container is alive"
+  shell: ping {{ ip_address }} -c 5
+  register: ping_result
+  changed_when: false
+  
+#- debug:  msg="{{ping_result}}"
+
+- include: install_ssh.yml
+  when: "ping_result.stdout.find('bytes from') != -1"
